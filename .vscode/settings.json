@@ -12,7 +12,7 @@
   "editor.wordBasedSuggestions": false,
   "editor.suggest.localityBonus": true,
   "editor.acceptSuggestionOnCommitCharacter": false,
-  "editor.acceptSuggestionOnEnter": "off",
+  "editor.acceptSuggestionOnEnter": "on",
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.suggestSelection": "recentlyUsed",
@@ -74,7 +74,8 @@
   ],
   "terminal.integrated.scrollback": 10000,
   "files.associations": {
-    "*.md": "mdx"
+    "*.md": "mdx",
+    "*.js": "javascriptreact"
   },
   "emmet.includeLanguages": { "javascript": "javascriptreact" },
   "explorer.openEditors.visible": 0,
@@ -112,7 +113,6 @@
       "parser": "markdown"
     }
   },
-  "javascript.updateImportsOnFileMove.enabled": "never",
   "typescript.updateImportsOnFileMove.enabled": "always",
   "editor.cursorSmoothCaretAnimation": true,
   "editor.smoothScrolling": true,
