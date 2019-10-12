@@ -8,26 +8,41 @@ import UnauthenticatedApp from "../UnauthenticatedApp";
 
 class App extends React.Component {
     state = {
-        uid: null
+        uid: null,
+        twitter: {
+            accessToken: null,
+            accessTokenSecret: null
+        }
     };
 
     componentDidMount() {
         firebase.auth().onAuthStateChanged(user => {
             if (user) {
-                this.authHandler({ user });
+                this.userAuthHandler({ user });
             }
         });
     }
 
-    authHandler = async data => {
-        console.log(data);
-        this.setState({
+    userAuthHandler = async data => {
+        const newState = {
+            ...this.state,
             uid: data.user.uid
-        });
+        };
+        this.setState(newState);
+    };
+
+    authHandler = async data => {
+        const newState = {
+            uid: data.user.uid,
+            twitter: {
+                accessToken: data.credential.accessToken || null,
+                secret: data.credential.secret
+            }
+        };
+        this.setState(newState);
     };
 
     logout = async () => {
-        console.log("Logging out!");
         await firebase.auth().signOut();
         this.setState({ uid: null });
     };
