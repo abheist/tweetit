@@ -25,17 +25,22 @@ class App extends React.Component {
 
     userAuthHandler = async data => {
         const newState = {
-            ...this.state,
-            uid: data.user.uid
+            uid: data.user.uid,
+            twitter: {
+                accessToken: localStorage.getItem("twitterAccessToken"),
+                secret: localStorage.getItem("twitterSecret")
+            }
         };
         this.setState(newState);
     };
 
     authHandler = async data => {
+        localStorage.setItem("twitterAccessToken", data.credential.accessToken);
+        localStorage.setItem("twitterSecret", data.credential.secret);
         const newState = {
             uid: data.user.uid,
             twitter: {
-                accessToken: data.credential.accessToken || null,
+                accessToken: data.credential.accessToken,
                 secret: data.credential.secret
             }
         };
