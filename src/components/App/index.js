@@ -1,34 +1,57 @@
 import React from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { firebaseApp } from "./../Firebase/firebase";
+import * as firebase from "firebase/app";
+import "firebase/auth";
 
-import Navigation from "../Navigation";
-import LandingPage from "../Landing";
-import SignUpPage from "../SignUp";
-import SignInPage from "../SignIn";
-import PasswordForgetPage from "../PasswordForget";
-import HomePage from "../Home";
-import AccountPage from "../Account";
-import AdminPage from "../Admin";
+import AuthenticatedApp from "../AuthenticatedApp";
+import UnauthenticatedApp from "../UnauthenticatedApp";
 
-import * as ROUTES from "../../constants/routes";
+class App extends React.Component {
+    state = {
+        uid: null
+    };
 
-const App = () => (
-    <Router>
-        <div>
-            <Navigation />
-            <hr />
-            <Route exact path={ROUTES.LANDING} component={LandingPage} />
-            <Route path={ROUTES.SIGN_UP} component={SignUpPage} />
-            <Route path={ROUTES.SIGN_IN} component={SignInPage} />
-            <Route
-                path={ROUTES.PASSWORD_FORGET}
-                component={PasswordForgetPage}
-            />
-            <Route path={ROUTES.HOME} component={HomePage} />
-            <Route path={ROUTES.ACCOUNT} component={AccountPage} />
-            <Route path={ROUTES.ADMIN} component={AdminPage} />
-        </div>
-    </Router>
-);
+    componentDidMount() {
+        firebase.auth().onAuthStateChanged(user => {
+            if (user) {
+                this.authHandler({ user });
+            }
+        });
+    }
+
+    authHandler = async data => {
+        console.log(data);
+        this.setState({
+            uid: data.user.uid
+        });
+    };
+
+    logout = async () => {
+        console.log("Logging out!");
+        await firebase.auth().signOut();
+        this.setState({ uid: null });
+    };
+
+    authenticate = () => {
+        const authProvider = new firebase.auth.TwitterAuthProvider();
+        firebaseApp
+            .auth()
+            .signInWithPopup(authProvider)
+            .then(this.authHandler);
+    };
+
+    render() {
+        return (
+            <div>
+                <h1>JustTwittit</h1>
+                {this.state.uid ? (
+                    <AuthenticatedApp logout={this.logout} />
+                ) : (
+                    <UnauthenticatedApp authenticate={this.authenticate} />
+                )}
+            </div>
+        );
+    }
+}
 
 export default App;
