@@ -1,4 +1,4 @@
-# JustTwittit
+# JusTwittit
 
 With this app, you can easily tweet without getting distracted with the twitter feeds.
 

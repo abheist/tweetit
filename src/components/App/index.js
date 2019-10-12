@@ -43,7 +43,7 @@ class App extends React.Component {
     render() {
         return (
             <div>
-                <h1>JustTwittit</h1>
+                <h1>JusTwittit</h1>
                 {this.state.uid ? (
                     <AuthenticatedApp logout={this.logout} />
                 ) : (
