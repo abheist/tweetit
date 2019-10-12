@@ -2,7 +2,7 @@ import React from "react";
 
 class AuthenticatedApp extends React.Component {
     handleTweet = () => {
-        console.log("Handling tweet!!!");
+        console.log("HAndle tweet!!!");
     };
 
     render() {

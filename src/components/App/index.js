@@ -65,7 +65,10 @@ class App extends React.Component {
             <div>
                 <h1>JusTwittit</h1>
                 {this.state.uid ? (
-                    <AuthenticatedApp logout={this.logout} />
+                    <AuthenticatedApp
+                        logout={this.logout}
+                        twitterKeys={this.state.twitter}
+                    />
                 ) : (
                     <UnauthenticatedApp authenticate={this.authenticate} />
                 )}
