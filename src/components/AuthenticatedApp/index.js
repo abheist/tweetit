@@ -1,8 +1,12 @@
 import React from "react";
+import { twitterKeys } from "../../constants/constants";
 
 class AuthenticatedApp extends React.Component {
     handleTweet = () => {
-        console.log("HAndle tweet!!!");
+        console.log(process.env.TWITTER_CONSUMER_API_KEY);
+        twitterKeys.accessToken = this.props.twitterKeys.accessToken;
+        twitterKeys.accessTokenSecret = this.props.twitterKeys.accessTokenSecret;
+        console.log(twitterKeys);
     };
 
     render() {
@@ -14,7 +18,7 @@ class AuthenticatedApp extends React.Component {
 
                 <textarea
                     name="tweetBox"
-                    id="tweetbox"
+                    id="tweetBox"
                     cols="30"
                     rows="10"
                 ></textarea>

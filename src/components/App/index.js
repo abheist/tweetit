@@ -28,7 +28,7 @@ class App extends React.Component {
             uid: data.user.uid,
             twitter: {
                 accessToken: localStorage.getItem("twitterAccessToken"),
-                secret: localStorage.getItem("twitterSecret")
+                accessTokenSecret: localStorage.getItem("twitterSecret")
             }
         };
         this.setState(newState);
@@ -39,9 +39,9 @@ class App extends React.Component {
         localStorage.setItem("twitterSecret", data.credential.secret);
         const newState = {
             uid: data.user.uid,
-            twitter: {
+            twitterKeys: {
                 accessToken: data.credential.accessToken,
-                secret: data.credential.secret
+                accessTokenSecret: data.credential.secret
             }
         };
         this.setState(newState);
