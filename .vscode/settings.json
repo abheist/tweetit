@@ -164,7 +164,7 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "editor.formatOnType": true,
-  "editor.fontSize": 16,
-  "editor.fontWeight": "200",
-  "python.jediEnabled": false
+  "python.jediEnabled": false,
+  "editor.fontSize": 17,
+  "terminal.integrated.fontWeightBold": "100"
 }
