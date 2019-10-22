@@ -3,7 +3,6 @@ import { twitterKeys } from "../../constants/constants";
 
 class AuthenticatedApp extends React.Component {
     handleTweet = () => {
-        console.log(process.env.TWITTER_CONSUMER_API_KEY);
         twitterKeys.accessToken = this.props.twitterKeys.accessToken;
         twitterKeys.accessTokenSecret = this.props.twitterKeys.accessTokenSecret;
         console.log(twitterKeys);
