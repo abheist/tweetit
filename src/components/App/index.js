@@ -2,9 +2,10 @@ import React from "react";
 import { firebaseApp } from "./../Firebase/firebase";
 import * as firebase from "firebase/app";
 import "firebase/auth";
-
 import AuthenticatedApp from "../AuthenticatedApp";
 import UnauthenticatedApp from "../UnauthenticatedApp";
+import Axios from "axios";
+import { BASE_URL } from "../../constants/routes";
 
 class App extends React.Component {
     state = {
@@ -37,6 +38,14 @@ class App extends React.Component {
     authHandler = async data => {
         localStorage.setItem("twitterAccessToken", data.credential.accessToken);
         localStorage.setItem("twitterSecret", data.credential.secret);
+        Axios.post(BASE_URL + "/rest-auth/twitter/", {
+            access_token: localStorage.getItem("twitterAccessToken"),
+            token_secret: localStorage.getItem("twitterSecret")
+        })
+            .then(response =>
+                localStorage.setItem("appAuthToken", response.key)
+            )
+            .catch(err => console.console.error(err));
         const newState = {
             uid: data.user.uid,
             twitterKeys: {
