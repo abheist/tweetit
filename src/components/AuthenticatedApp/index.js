@@ -1,11 +1,23 @@
 import React from "react";
-import { twitterKeys } from "../../constants/constants";
+import Axios from "axios";
+import { BASE_URL } from "../../constants/routes";
 
 class AuthenticatedApp extends React.Component {
-    handleTweet = () => {
-        twitterKeys.accessToken = this.props.twitterKeys.accessToken;
-        twitterKeys.accessTokenSecret = this.props.twitterKeys.accessTokenSecret;
-        console.log(twitterKeys);
+    state = {
+        tweetText: ""
+    };
+
+    handleSubmit = event => {
+        event.preventDefault();
+        Axios.post(BASE_URL + "/tweet/", {
+            tweet: this.state.tweetText
+        })
+            .then(response => console.log(response))
+            .catch(err => console.console.error(err));
+    };
+
+    handleTweetChange = event => {
+        this.setState({ tweetText: event.target.value });
     };
 
     render() {
@@ -15,13 +27,17 @@ class AuthenticatedApp extends React.Component {
                 <button onClick={this.props.logout}>SignOut</button>
                 <hr />
 
-                <textarea
-                    name="tweetBox"
-                    id="tweetBox"
-                    cols="30"
-                    rows="10"
-                ></textarea>
-                <button onClick={this.handleTweet}>Tweet</button>
+                <form onSubmit={this.handleSubmit}>
+                    <textarea
+                        name="tweetBox"
+                        id="tweetBox"
+                        value={this.state.tweetText}
+                        onChange={this.handleTweetChange}
+                        cols="30"
+                        rows="10"
+                    ></textarea>
+                    <button type="submit">Tweet</button>
+                </form>
             </div>
         );
     }
