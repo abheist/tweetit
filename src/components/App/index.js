@@ -42,9 +42,11 @@ class App extends React.Component {
             access_token: localStorage.getItem("twitterAccessToken"),
             token_secret: localStorage.getItem("twitterSecret")
         })
-            .then(response =>
-                localStorage.setItem("appAuthToken", response.key)
-            )
+            .then(response => {
+                localStorage.setItem("appAuthToken", response.data.key);
+                console.log("response======");
+                console.log(response);
+            })
             .catch(err => console.console.error(err));
         const newState = {
             uid: data.user.uid,

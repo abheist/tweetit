@@ -9,10 +9,15 @@ class AuthenticatedApp extends React.Component {
 
     handleSubmit = event => {
         event.preventDefault();
+        Axios.defaults.headers.common["Authorization"] =
+            "Token " + localStorage.getItem("appAuthToken");
         Axios.post(BASE_URL + "/tweet/", {
             tweet: this.state.tweetText
         })
-            .then(response => console.log(response))
+            .then(response => {
+                alert("Tweeted!!!");
+                this.setState({ tweetText: "" });
+            })
             .catch(err => console.console.error(err));
     };
 
